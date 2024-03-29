@@ -1,0 +1,31 @@
+# .github/workflows/ci.yml
+
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.18' # Use the Go version that matches your project requirements
+
+    - name: Make Dependencies
+      run: make deps
+
+    - name: Make Test
+      run: make test
+
+    - name: Make Build
+      run: make build
